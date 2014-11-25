@@ -29,17 +29,40 @@ angular.module('sasControllers', []).
                 $scope.total = 10;
                 $scope.threshold = 3;
 
+                var clickedShares = {};
+
+                $scope.isShareClicked = function (share) {
+                    console.log('iA: ' + JSON.stringify(clickedShares));
+                    console.log('iO: ' + clickedShares[share]);
+                    return clickedShares[share] !== undefined;
+                };
+
+                $scope.shareClicked = function (share) {
+                    console.log('cA: ' + JSON.stringify(clickedShares));
+                    console.log('cO: ' + clickedShares[share]);
+                    clickedShares[share] = true;
+                };
+
                 $scope.split = function () {
-                    console.log("Secret: " + $scope.secret);
-                    console.log("Total : " + $scope.total);
-                    console.log("Threshold: " + $scope.threshold);
+                    $scope.errors = [];
+                    $scope.shares = [];
+                    clickedShares = {};
                     SplitService.split({
                         secret: $scope.secret,
                         total: $scope.total,
                         threshold: $scope.threshold},
-                    function (shares) {
-                        $scope.shares = shares.shares;
-                        console.log("Shares received: " + shares);
+                    function (response) {
+                        console.log(JSON.stringify(response));
+                        if (response.status === 'OK') {
+                            $scope.shares = response.data.shares;
+                        } else {
+                            $scope.errors = response.errors;
+                            console.log("Errors: " + JSON.stringify(response.errors));
+                        }
+                    }, function (response) {
+                        console.log(JSON.stringify(response));
+                        $scope.errors = response.data.errors;
+                        console.log("Errors: " + JSON.stringify(response.data.errors));
                     });
                 };
             }]);

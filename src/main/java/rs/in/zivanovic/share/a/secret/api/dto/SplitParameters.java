@@ -26,6 +26,7 @@ package rs.in.zivanovic.share.a.secret.api.dto;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -34,6 +35,7 @@ import javax.validation.constraints.NotNull;
 public class SplitParameters {
 
     @NotNull
+    @Size(min = 1, max = 100)
     private String secret;
     @NotNull
     @Min(1)

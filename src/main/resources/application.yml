@@ -1,0 +1,5 @@
+spring:
+    jackson:
+        serialization:
+            WRITE_NULL_PROPERTIES: false
+            
