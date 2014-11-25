@@ -21,34 +21,51 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package rs.in.zivanovic.share.a.secret.api.controllers;
+package rs.in.zivanovic.share.a.secret.api.dto;
 
-import java.util.List;
-import javax.validation.Valid;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
-import rs.in.zivanovic.share.a.secret.api.dto.Shares;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import rs.in.zivanovic.share.a.secret.api.SecretShare;
-import rs.in.zivanovic.share.a.secret.api.ShamirSecretSharing;
-import rs.in.zivanovic.share.a.secret.api.dto.SplitParameters;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /**
  *
  * @author Marko Zivanovic <marko@zivanovic.in.rs>
  */
-@RestController
-@RequestMapping("/sas")
-public class SasController {
+public class SplitParameters {
 
-    @RequestMapping(method = RequestMethod.POST, value = "/split")
-    public Shares split(@Valid @RequestBody SplitParameters params, BindingResult br) {
-        if (br.hasErrors()) {
-            throw new IllegalArgumentException(br.toString());
-        }
-        List<SecretShare> shares = ShamirSecretSharing.split(params.getSecret(), params.getTotal(), params.getThreshold());
-        return new Shares(shares);
+    @NotNull
+    private String secret;
+    @NotNull
+    @Min(1)
+    @Max(100)
+    private int total;
+    @NotNull
+    @Min(1)
+    @Max(99)
+    private int threshold;
+
+    public String getSecret() {
+        return secret;
     }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
+    public int getThreshold() {
+        return threshold;
+    }
+
+    public void setThreshold(int threshold) {
+        this.threshold = threshold;
+    }
+
 }
