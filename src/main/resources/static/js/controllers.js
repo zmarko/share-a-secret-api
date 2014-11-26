@@ -32,18 +32,19 @@ angular.module('sasControllers', []).
                 var clickedShares = {};
 
                 $scope.isShareClicked = function (share) {
-                    console.log('iA: ' + JSON.stringify(clickedShares));
-                    console.log('iO: ' + clickedShares[share]);
                     return clickedShares[share] !== undefined;
                 };
 
                 $scope.shareClicked = function (share) {
-                    console.log('cA: ' + JSON.stringify(clickedShares));
-                    console.log('cO: ' + clickedShares[share]);
                     clickedShares[share] = true;
                 };
 
                 $scope.split = function () {
+                    if ($scope.secret === undefined || $scope.secret.length === 0 ||
+                            $scope.total === undefined || Number($scope.total) > 100 ||
+                            $scope.threshold === undefined || Number($scope.threshold) > 99) {
+                        return;
+                    }
                     $scope.errors = [];
                     $scope.shares = [];
                     clickedShares = {};
@@ -52,17 +53,23 @@ angular.module('sasControllers', []).
                         total: $scope.total,
                         threshold: $scope.threshold},
                     function (response) {
-                        console.log(JSON.stringify(response));
                         if (response.status === 'OK') {
                             $scope.shares = response.data.shares;
+                            $scope.sharesAsText = mergeSharesToString(response.data.shares);
                         } else {
                             $scope.errors = response.errors;
-                            console.log("Errors: " + JSON.stringify(response.errors));
                         }
                     }, function (response) {
-                        console.log(JSON.stringify(response));
                         $scope.errors = response.data.errors;
-                        console.log("Errors: " + JSON.stringify(response.data.errors));
                     });
                 };
             }]);
+
+function mergeSharesToString(shares) {
+    var res = "";
+    for (var i in shares) {
+        res = res + shares[i] + (i < shares.length - 1 ? "\n" : "");
+    }
+    return res;
+}
+

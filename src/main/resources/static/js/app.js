@@ -24,6 +24,7 @@
 
 angular.module('sasApp', [
     'ngResource',
+    'ui.bootstrap',
     'sasControllers',
     'sasServices'
 ]).directive('selectOnClick', function ($window) {
@@ -37,5 +38,5 @@ angular.module('sasApp', [
                 selection.addRange(range);
             });
         }
-    }
+    };
 });

@@ -58,8 +58,8 @@ public class SasController {
             return SasResponse.badRequest().withInvalidParameterValueError("threshold", params.getThreshold(),
                     "must not be grater than 'total' (" + String.valueOf(params.getTotal()) + ")").build();
         }
-        List<SecretShare> shares = ShamirSecretSharing.split(params.getSecret(), params.getTotal(), params.
-                getThreshold());
+        List<SecretShare> shares = ShamirSecretSharing.split(params.getSecret(), params.getTotal(),
+                params.getThreshold());
         return SasResponse.ok().withData(new Shares(shares)).build();
     }
 }
