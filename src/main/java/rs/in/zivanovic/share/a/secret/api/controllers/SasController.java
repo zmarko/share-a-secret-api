@@ -24,7 +24,10 @@
 package rs.in.zivanovic.share.a.secret.api.controllers;
 
 import java.util.List;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 import javax.validation.Valid;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,6 +39,7 @@ import rs.in.zivanovic.share.a.secret.api.SecretShare;
 import rs.in.zivanovic.share.a.secret.api.ShamirSecretSharing;
 import rs.in.zivanovic.share.a.secret.api.dto.SasResponse;
 import rs.in.zivanovic.share.a.secret.api.dto.SplitParameters;
+import rs.in.zivanovic.share.a.secret.api.dto.Version;
 
 /**
  *
@@ -44,6 +48,9 @@ import rs.in.zivanovic.share.a.secret.api.dto.SplitParameters;
 @RestController
 @RequestMapping("/sas")
 public class SasController {
+
+    @Value("${info.build.version:'<N/A>'}")
+    private String version;
 
     @RequestMapping(method = RequestMethod.POST, value = "/split")
     public ResponseEntity split(@Valid @RequestBody SplitParameters params, BindingResult br) {
@@ -61,5 +68,18 @@ public class SasController {
         List<SecretShare> shares = ShamirSecretSharing.split(params.getSecret(), params.getTotal(),
                 params.getThreshold());
         return SasResponse.ok().withData(new Shares(shares)).build();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/version")
+    public ResponseEntity version() {
+        String commitId = "<N/A>";
+        String buildTime = "<N/A>";
+        try {
+            ResourceBundle rb = ResourceBundle.getBundle("git");
+            commitId = rb.getString("git.commit.id.abbrev");
+            buildTime = rb.getString("git.build.time");
+        } catch (MissingResourceException ex) {
+        }
+        return SasResponse.ok().withData(new Version(String.format("%s.%s", version, commitId), buildTime)).build();
     }
 }

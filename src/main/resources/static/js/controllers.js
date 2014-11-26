@@ -23,8 +23,8 @@
  */
 
 angular.module('sasControllers', []).
-        controller('MainController', ['$scope', 'SplitService',
-            function ($scope, SplitService) {
+        controller('MainController', ['$scope', 'SasService',
+            function ($scope, SasService) {
 
                 $scope.total = 10;
                 $scope.threshold = 3;
@@ -48,7 +48,7 @@ angular.module('sasControllers', []).
                     $scope.errors = [];
                     $scope.shares = [];
                     clickedShares = {};
-                    SplitService.split({
+                    SasService.split({
                         secret: $scope.secret,
                         total: $scope.total,
                         threshold: $scope.threshold},

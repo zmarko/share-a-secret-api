@@ -29,8 +29,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 /**
- * Every call to share-a-secret API service returns object of SasResponse class
- * as response.
+ * Every call to share-a-secret API service returns object of SasResponse class as response.
  *
  * @author Marko Zivanovic <marko@zivanovic.in.rs>
  */
@@ -48,13 +47,14 @@ public class SasResponse {
         return new SasResponse(status);
     }
 
-    public SasResponse withData(Shares shares) {
-        data = shares;
+    public SasResponse withData(Object data) {
+        this.data = data;
         return this;
     }
 
     public SasResponse withInvalidParameterValueError(String field, Object value, String reason) {
-        return withError(Error.INVALID_PARAMETER_VALUE, String.format("Invalid value '%s' for field '%s' because '%s'", value, field, reason));
+        return withError(Error.INVALID_PARAMETER_VALUE, String.format("Invalid value '%s' for field '%s' because '%s'",
+                value, field, reason));
     }
 
     public SasResponse withError(int code, String message) {

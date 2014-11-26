@@ -39,4 +39,8 @@ angular.module('sasApp', [
             });
         }
     };
+}).run(function (SasService, $rootScope) {
+    SasService.version({}, function (response) {
+        $rootScope.version = response.data;
+    });
 });
