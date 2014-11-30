@@ -22,19 +22,21 @@
  * THE SOFTWARE.
  */
 
+var API_BASE = "https://share-a-secret-api.herokuapp.com/sas";
+
 angular.module('sasServices', []).
         factory('SasService', ['$resource', function ($resource) {
-                return $resource("https://share-a-secret-api.herokuapp.com/sas", {}, {
+                return $resource(API_BASE, {}, {
                     split: {
-                        url: "https://share-a-secret-api.herokuapp.com/sas/split",
+                        url: API_BASE + "/split",
                         method: "POST"
                     },
                     join: {
-                        url: "https://share-a-secret-api.herokuapp.com/sas/join",
+                        url: API_BASE + "/join",
                         method: "POST"
                     },
                     version: {
-                        url: "https://share-a-secret-api.herokuapp.com/sas/version",
+                        url: API_BASE + "/version",
                         method: "GET"
                     }
                 });
