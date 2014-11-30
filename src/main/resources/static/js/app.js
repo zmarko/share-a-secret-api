@@ -62,4 +62,6 @@ angular.module('sasApp', [
                 otherwise({
                     redirectTo: '/'
                 });
-    }]);
+    }
+]);
+
