@@ -23,29 +23,19 @@
  */
 package rs.in.zivanovic.share.a.secret.api.dto;
 
-import java.util.ArrayList;
 import java.util.List;
-import org.apache.tomcat.util.codec.binary.Base64;
-import rs.in.zivanovic.share.a.secret.api.SecretShare;
-import rs.in.zivanovic.share.a.secret.api.Utils;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
  * @author Marko Zivanovic <marko@zivanovic.in.rs>
  */
-public class Shares {
+public class JoinParameters {
 
-    private List<String> shares = new ArrayList<>();
-
-    public Shares(List<SecretShare> shares) {
-        this.shares.clear();
-        shares.stream().forEachOrdered(share -> {
-            this.shares.add(Base64.encodeBase64String(Utils.encodeToBinary(share)));
-        });
-    }
-
-    public Shares() {
-    }
+    @NotNull
+    @Size(min = 1)
+    private List<String> shares;
 
     public List<String> getShares() {
         return shares;
@@ -54,4 +44,5 @@ public class Shares {
     public void setShares(List<String> shares) {
         this.shares = shares;
     }
+
 }

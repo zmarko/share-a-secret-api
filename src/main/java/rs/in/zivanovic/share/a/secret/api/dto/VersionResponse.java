@@ -1,4 +1,4 @@
-/* 
+/*
  * The MIT License
  *
  * Copyright 2014 Marko Zivanovic.
@@ -21,21 +21,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+package rs.in.zivanovic.share.a.secret.api.dto;
 
-angular.module('sasServices', []).
-        factory('SasService', ['$resource', function ($resource) {
-                return $resource("/sas", {}, {
-                    split: {
-                        url: "/sas/split",
-                        method: "POST"
-                    },
-                    join: {
-                        url: "/sas/join",
-                        method: "POST"
-                    },
-                    version: {
-                        url: "/sas/version",
-                        method: "GET"
-                    }
-                });
-            }]);
+/**
+ *
+ * @author Marko Zivanovic <marko@zivanovic.in.rs>
+ */
+public class VersionResponse {
+
+    private String frontendVersion;
+    private String buildTime;
+
+    public VersionResponse(String frontendVersion, String buildTime) {
+        this.frontendVersion = frontendVersion;
+        this.buildTime = buildTime;
+    }
+
+    public String getFrontendVersion() {
+        return frontendVersion;
+    }
+
+    public void setFrontendVersion(String frontendVersion) {
+        this.frontendVersion = frontendVersion;
+    }
+
+    public String getBuildTime() {
+        return buildTime;
+    }
+
+    public void setBuildTime(String buildTime) {
+        this.buildTime = buildTime;
+    }
+}

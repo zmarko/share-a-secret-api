@@ -25,6 +25,7 @@
  */
 package rs.in.zivanovic.share.a.secret.api;
 
+import rs.in.zivanovic.share.a.secret.api.dto.SecretShare;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;

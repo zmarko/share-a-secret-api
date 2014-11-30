@@ -23,33 +23,34 @@
  */
 package rs.in.zivanovic.share.a.secret.api.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.tomcat.util.codec.binary.Base64;
+import rs.in.zivanovic.share.a.secret.api.Utils;
+
 /**
  *
  * @author Marko Zivanovic <marko@zivanovic.in.rs>
  */
-public class Version {
+public class SplitResponse {
 
-    private String frontendVersion;
-    private String buildTime;
+    private List<String> shares = new ArrayList<>();
 
-    public Version(String frontendVersion, String buildTime) {
-        this.frontendVersion = frontendVersion;
-        this.buildTime = buildTime;
+    public SplitResponse(List<SecretShare> shares) {
+        this.shares.clear();
+        shares.stream().forEachOrdered(share -> {
+            this.shares.add(Base64.encodeBase64String(Utils.encodeToBinary(share)));
+        });
     }
 
-    public String getFrontendVersion() {
-        return frontendVersion;
+    public SplitResponse() {
     }
 
-    public void setFrontendVersion(String frontendVersion) {
-        this.frontendVersion = frontendVersion;
+    public List<String> getShares() {
+        return shares;
     }
 
-    public String getBuildTime() {
-        return buildTime;
-    }
-
-    public void setBuildTime(String buildTime) {
-        this.buildTime = buildTime;
+    public void setShares(List<String> shares) {
+        this.shares = shares;
     }
 }

@@ -24,6 +24,7 @@
 
 angular.module('sasApp', [
     'ngResource',
+    'ngRoute',
     'ui.bootstrap',
     'sasControllers',
     'sasServices'
@@ -43,4 +44,22 @@ angular.module('sasApp', [
     SasService.version({}, function (response) {
         $rootScope.version = response.data;
     });
-});
+}).config(['$routeProvider',
+    function ($routeProvider) {
+        $routeProvider.
+                when('/split', {
+                    templateUrl: 'split.html',
+                    controller: 'SplitController'
+                }).
+                when('/join', {
+                    templateUrl: 'join.html',
+                    controller: 'JoinController'
+                }).
+                when('/', {
+                    templateUrl: 'about.html',
+                    controller: 'AboutController'
+                }).
+                otherwise({
+                    redirectTo: '/'
+                });
+    }]);

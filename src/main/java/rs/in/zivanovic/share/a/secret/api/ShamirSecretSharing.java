@@ -25,6 +25,7 @@
  */
 package rs.in.zivanovic.share.a.secret.api;
 
+import rs.in.zivanovic.share.a.secret.api.dto.SecretShare;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;

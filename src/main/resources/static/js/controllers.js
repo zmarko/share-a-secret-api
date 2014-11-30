@@ -23,7 +23,7 @@
  */
 
 angular.module('sasControllers', []).
-        controller('MainController', ['$scope', 'SasService',
+        controller('SplitController', ['$scope', 'SasService',
             function ($scope, SasService) {
 
                 $scope.total = 10;
@@ -62,6 +62,34 @@ angular.module('sasControllers', []).
                     }, function (response) {
                         $scope.errors = response.data.errors;
                     });
+                };
+            }]).
+        controller('JoinController', ['$scope', 'SasService',
+            function ($scope, SasService) {
+                $scope.join = function () {
+                    $scope.errors = [];
+                    $scope.secret = "";
+                    var shares = [];
+                    var text = $scope.sharesAsText.split("\n");
+                    for (var i in text) {
+                        var share = text[i];
+                        shares.push(share);
+                    }
+                    SasService.join({shares: shares}, function (response) {
+                        $scope.secret = response.data.secret;
+                    }, function (response) {
+                        $scope.errors = response.data.errors;
+                    });
+                };
+            }]).
+        controller('AboutController', ['$scope', '$location',
+            function ($scope, $location) {
+                $scope.goJoin = function () {
+                    $location.path("/join");
+                };
+
+                $scope.goSplit = function () {
+                    $location.path("/split");
                 };
             }]);
 

@@ -1,0 +1,64 @@
+<div class="container-fluid">
+    <form>
+        <div class="row">
+            <div class="col-md-8 form-group">
+                <label for="secret">Enter here the secret you want to share:</label>
+                <input id="secret" type="text" ng-model="secret" size="20" placeholder="Enter your secret here ..." class="form-control input-lg" required="true"/>
+            </div>
+            <div class="col-md-2 form-group">
+                <label for="total">Total shares:</label>
+                <input id="total" type="number" ng-model="total" min="1" max="100" size="3" class="form-control input-lg"/>
+            </div>
+            <div class="col-md-2 form-group">
+                <label for="threshold">Required shares:</label>
+                <input id="threshold" type="number" ng-model="threshold" min="1" max="100" size="3" class="form-control input-lg"/>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-md-12 form-group">
+                <button id="split" ng-click="split()" class="btn btn-lg btn-primary btn-block">Split</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="col-md-12" ng-show="errors.length">
+            <h1>Whoops, something's wrong ...</h1>
+            <div ng-repeat="err in errors">
+                <div class="alert alert-danger">{{err.message}}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-show="shares.length">
+        <div class="row">
+            <hr/>
+            <h1>Here are your secret shares ...</h1>
+        </div>
+
+        <tabset>
+            <tab>
+                <tab-heading><i class="glyphicon glyphicon-list"></i> List</tab-heading>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p class="text-muted">Click on a share to select it for easy copying to clipboard.
+                            After clicking it, the share will change color to indicate the ones you have already copied.</p>
+                        <div ng-repeat="share in shares">
+                            <div class="text-nowrap alert" ng-class="{'alert-info': !isShareClicked(share), 'alert-success': isShareClicked(share)}" ng-click="shareClicked(share)" select-on-click>{{share}}</div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab>
+                <tab-heading><i class="glyphicon glyphicon-align-left"></i> Text</tab-heading>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p class="text-muted">Use this panel to easily copy all shares at once.</p>
+                        <textarea class="form-control" rows="{{total < 20 ? total : 20}}" readonly="true" wrap="off">{{sharesAsText}}</textarea>
+                    </div>
+                </div>
+            </tab>
+        </tabset>
+    </div>
+</div>

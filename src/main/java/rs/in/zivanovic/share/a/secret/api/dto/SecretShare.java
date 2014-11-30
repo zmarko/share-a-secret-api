@@ -23,7 +23,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package rs.in.zivanovic.share.a.secret.api;
+package rs.in.zivanovic.share.a.secret.api.dto;
 
 import java.math.BigInteger;
 import java.util.Objects;

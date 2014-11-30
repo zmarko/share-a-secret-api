@@ -1,0 +1,36 @@
+<div class="container-fluid">
+    <form>
+
+        <div class="row" ng-show="secret">
+            <div class="col-md-12">
+                <p>Your secret, based on the shares you provided, is:</p>
+                <p class="text-success bg-success h1 center-block">
+                    {{secret}}
+                </p>
+                <hr/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 form-group">
+                <label for="shares">Enter the shares you want to join here, one per line.</label>
+                <textarea id="shares" class="form-control" wrap="soft" ng-model="sharesAsText" rows="10"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 form-group">
+                <button id="join" ng-click="join()" class="btn btn-lg btn-primary btn-block">Join</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="col-md-12" ng-show="errors.length">
+            <h1>Whoops, something's wrong ...</h1>
+            <div ng-repeat="err in errors">
+                <div class="alert alert-danger">{{err.message}}</div>
+            </div>
+        </div>
+    </div>
+
+</div>

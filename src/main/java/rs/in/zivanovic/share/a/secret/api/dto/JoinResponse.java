@@ -1,4 +1,4 @@
-/* 
+/*
  * The MIT License
  *
  * Copyright 2014 Marko Zivanovic.
@@ -21,21 +21,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+package rs.in.zivanovic.share.a.secret.api.dto;
 
-angular.module('sasServices', []).
-        factory('SasService', ['$resource', function ($resource) {
-                return $resource("/sas", {}, {
-                    split: {
-                        url: "/sas/split",
-                        method: "POST"
-                    },
-                    join: {
-                        url: "/sas/join",
-                        method: "POST"
-                    },
-                    version: {
-                        url: "/sas/version",
-                        method: "GET"
-                    }
-                });
-            }]);
+/**
+ *
+ * @author Marko Zivanovic <marko@zivanovic.in.rs>
+ */
+public class JoinResponse {
+
+    private String secret;
+
+    public JoinResponse(String secret) {
+        this.secret = secret;
+    }
+
+    public String getSecret() {
+        return secret;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
+
+}
