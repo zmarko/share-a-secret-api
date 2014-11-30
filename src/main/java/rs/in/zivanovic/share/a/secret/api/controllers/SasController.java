@@ -78,7 +78,7 @@ public class SasController {
             response = processValidationErrors(br);
         } else {
             try {
-                String secret = ShamirSecretSharing.joinToUtf8String(makeSecretShares(params));
+                String secret = ShamirSecretSharing.joinToUtf8String(decodeSecretShares(params));
                 response = SasResponse.ok().withData(new JoinResponse(secret));
             } catch (RuntimeException ex) {
                 response = SasResponse.badRequest().withInvalidParameterValueError("shares", params.getShares(),
@@ -102,7 +102,7 @@ public class SasController {
         return r;
     }
 
-    private List<SecretShare> makeSecretShares(JoinParameters params) {
+    private List<SecretShare> decodeSecretShares(JoinParameters params) {
         List<SecretShare> shares = new ArrayList<>(params.getShares().size());
         params.getShares().stream().forEach(share -> {
             shares.add(Utils.decodeFromBinary(Base64.getDecoder().decode(share)));

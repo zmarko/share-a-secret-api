@@ -30,7 +30,6 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  *
- * @author Marko Zivanovic <marko@zivanovic.in.rs>
  */
 @Configuration
 @EnableAutoConfiguration

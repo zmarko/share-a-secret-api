@@ -24,17 +24,17 @@
 
 angular.module('sasServices', []).
         factory('SasService', ['$resource', function ($resource) {
-                return $resource("/sas", {}, {
+                return $resource("https://share-a-secret-api.herokuapp.com/sas", {}, {
                     split: {
-                        url: "/sas/split",
+                        url: "https://share-a-secret-api.herokuapp.com/sas/split",
                         method: "POST"
                     },
                     join: {
-                        url: "/sas/join",
+                        url: "https://share-a-secret-api.herokuapp.com/sas/join",
                         method: "POST"
                     },
                     version: {
-                        url: "/sas/version",
+                        url: "https://share-a-secret-api.herokuapp.com/sas/version",
                         method: "GET"
                     }
                 });
