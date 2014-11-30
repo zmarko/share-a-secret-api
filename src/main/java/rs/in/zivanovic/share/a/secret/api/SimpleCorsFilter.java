@@ -1,4 +1,4 @@
-/* 
+/*
  * The MIT License
  *
  * Copyright 2014 Marko Zivanovic.
@@ -21,23 +21,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+package rs.in.zivanovic.share.a.secret.api;
 
-var API_BASE = "https://share-a-secret-api.herokuapp.com/sas";
+import java.io.IOException;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Component;
 
-angular.module('sasServices', []).
-        factory('SasService', ['$resource', function ($resource) {
-                return $resource(API_BASE, {}, {
-                    split: {
-                        url: API_BASE + "/split",
-                        method: "POST"
-                    },
-                    join: {
-                        url: API_BASE + "/join",
-                        method: "POST"
-                    },
-                    version: {
-                        url: API_BASE + "/version",
-                        method: "GET"
-                    }
-                });
-            }]);
+@Component
+public class SimpleCorsFilter implements Filter {
+
+    @Override
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+        HttpServletResponse response = (HttpServletResponse) res;
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
+        chain.doFilter(req, res);
+    }
+
+    @Override
+    public void init(FilterConfig filterConfig) {
+    }
+
+    @Override
+    public void destroy() {
+    }
+
+}
