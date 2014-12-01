@@ -23,18 +23,38 @@
  */
 package rs.in.zivanovic.share.a.secret.api;
 
+import org.apache.catalina.connector.Connector;
+import org.apache.coyote.http11.AbstractHttp11Protocol;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
+import org.springframework.boot.context.embedded.tomcat.TomcatConnectorCustomizer;
+import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 
-/**
- *
- */
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan
 public class Application {
+
+    @Bean
+    public EmbeddedServletContainerCustomizer servletContainerCustomizer() {
+        return (ConfigurableEmbeddedServletContainer servletContainer) -> {
+            ((TomcatEmbeddedServletContainerFactory) servletContainer).addConnectorCustomizers(
+                    (TomcatConnectorCustomizer) (Connector connector) -> {
+                        AbstractHttp11Protocol httpProtocol = (AbstractHttp11Protocol) connector.getProtocolHandler();
+                        httpProtocol.setCompression("on");
+                        httpProtocol.setCompressionMinSize(256);
+                        String mimeTypes = httpProtocol.getCompressableMimeTypes();
+                        String mimeTypesWithJson = mimeTypes + "," + MediaType.APPLICATION_JSON_VALUE;
+                        httpProtocol.setCompressableMimeTypes(mimeTypesWithJson);
+                    });
+        };
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
