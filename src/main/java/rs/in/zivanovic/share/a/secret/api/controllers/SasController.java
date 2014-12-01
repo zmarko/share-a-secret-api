@@ -37,12 +37,12 @@ import rs.in.zivanovic.share.a.secret.api.dto.SplitResponse;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import rs.in.zivanovic.share.a.secret.api.dto.SecretShare;
-import rs.in.zivanovic.share.a.secret.api.ShamirSecretSharing;
-import rs.in.zivanovic.share.a.secret.api.Utils;
 import rs.in.zivanovic.share.a.secret.api.dto.SasResponse;
 import rs.in.zivanovic.share.a.secret.api.dto.SplitParameters;
 import rs.in.zivanovic.share.a.secret.api.dto.VersionResponse;
+import rs.in.zivanovic.sss.SasUtils;
+import rs.in.zivanovic.sss.SecretShare;
+import rs.in.zivanovic.sss.ShamirSecretSharing;
 
 /**
  *
@@ -105,7 +105,7 @@ public class SasController {
     private List<SecretShare> decodeSecretShares(JoinParameters params) {
         List<SecretShare> shares = new ArrayList<>(params.getShares().size());
         params.getShares().stream().forEach(share -> {
-            shares.add(Utils.decodeFromBinary(Base64.getDecoder().decode(share)));
+            shares.add(SasUtils.decodeFromBinary(Base64.getDecoder().decode(share)));
         });
         return shares;
     }

@@ -26,7 +26,8 @@ package rs.in.zivanovic.share.a.secret.api.dto;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.tomcat.util.codec.binary.Base64;
-import rs.in.zivanovic.share.a.secret.api.Utils;
+import rs.in.zivanovic.sss.SasUtils;
+import rs.in.zivanovic.sss.SecretShare;
 
 /**
  *
@@ -39,7 +40,7 @@ public class SplitResponse {
     public SplitResponse(List<SecretShare> shares) {
         this.shares.clear();
         shares.stream().forEachOrdered(share -> {
-            this.shares.add(Base64.encodeBase64String(Utils.encodeToBinary(share)));
+            this.shares.add(Base64.encodeBase64String(SasUtils.encodeToBinary(share)));
         });
     }
 
