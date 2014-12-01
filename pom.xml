@@ -44,6 +44,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>rs.in.zivanovic</groupId>
+            <artifactId>sss</artifactId>
+            <version>1.0.0</version>
+        </dependency>    
     </dependencies>
 
     <build>
