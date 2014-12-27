@@ -48,7 +48,12 @@
             <groupId>rs.in.zivanovic</groupId>
             <artifactId>sss</artifactId>
             <version>1.0.0</version>
-        </dependency>    
+        </dependency>
+        <dependency>
+            <groupId>net.glxn.qrgen</groupId>
+            <artifactId>javase</artifactId>
+            <version>2.0</version>
+        </dependency>
     </dependencies>
 
     <build>
