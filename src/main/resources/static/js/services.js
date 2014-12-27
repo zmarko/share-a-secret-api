@@ -22,8 +22,7 @@
  * THE SOFTWARE.
  */
 
-//var API_BASE = "https://share-a-secret-api.herokuapp.com";
-var API_BASE = "http://localhost:8080";
+var API_BASE = "https://share-a-secret-api.herokuapp.com";
 
 angular.module('sasServices', []).
         factory('SasService', ['$resource', function ($resource) {
