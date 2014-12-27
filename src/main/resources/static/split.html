@@ -32,10 +32,10 @@
     </div>
 
     <div class="row" ng-show="shares.length">
-        <div class="row">
-            <hr/>
-            <h1>Here are your secret shares ...</h1>
-        </div>
+        <!--<hr/>-->
+        <h1>Here are your secret shares ...</h1>
+        <!--        <div class="row">
+                </div>-->
 
         <tabset>
             <tab>
@@ -56,6 +56,19 @@
                     <div class="panel-body">
                         <p class="text-muted">Use this panel to easily copy all shares at once.</p>
                         <textarea class="form-control" rows="{{total < 20 ? total : 20}}" readonly="true" wrap="off">{{sharesAsText}}</textarea>
+                    </div>
+                </div>
+            </tab>
+            <tab>
+                <tab-heading><i class="glyphicon glyphicon-qrcode"></i> QR codes</tab-heading>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p class="text-muted">Use QR encoded shares for easy scanning into mobile devices.</p>
+                        <div class="row">
+                            <div ng-repeat="share in shares">
+                                <div class="col-md-2"><img ng-src="/qr/encode?text={{share}}&size=200&ecl=M"/></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </tab>

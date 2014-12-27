@@ -1,4 +1,4 @@
-/* 
+/*
  * The MIT License
  *
  * Copyright 2014 Marko Zivanovic.
@@ -21,24 +21,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+package rs.in.zivanovic.share.a.secret.api.controllers;
 
-//var API_BASE = "https://share-a-secret-api.herokuapp.com";
-var API_BASE = "http://localhost:8080";
+import org.springframework.validation.BindingResult;
+import rs.in.zivanovic.share.a.secret.api.dto.SasResponse;
 
-angular.module('sasServices', []).
-        factory('SasService', ['$resource', function ($resource) {
-                return $resource(API_BASE, {}, {
-                    split: {
-                        url: API_BASE + "/sas/split",
-                        method: "POST"
-                    },
-                    join: {
-                        url: API_BASE + "/sas/join",
-                        method: "POST"
-                    },
-                    version: {
-                        url: API_BASE + "/sas/version",
-                        method: "GET"
-                    }
-                });
-            }]);
+/**
+ * Base class for our controllers. It contains common methods used across different controllers.
+ *
+ * @author Marko Zivanovic <marko@zivanovic.in.rs>
+ */
+public abstract class AbstractSasController {
+
+    protected SasResponse processValidationErrors(BindingResult br) {
+        SasResponse r = SasResponse.badRequest();
+        br.getFieldErrors().stream().forEach(err -> {
+            r.withInvalidParameterValueError(err.getField(), err.getRejectedValue(), err.getDefaultMessage());
+        });
+        return r;
+    }
+
+}

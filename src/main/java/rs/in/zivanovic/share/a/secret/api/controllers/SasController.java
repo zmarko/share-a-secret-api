@@ -50,7 +50,7 @@ import rs.in.zivanovic.sss.ShamirSecretSharing;
  */
 @RestController
 @RequestMapping("/sas")
-public class SasController {
+public class SasController extends AbstractSasController {
 
     @Value("${info.build.version:'<N/A>'}")
     private String version;
@@ -92,14 +92,6 @@ public class SasController {
     public ResponseEntity version() {
         String buildTime = "<N/A>";
         return SasResponse.ok().withData(new VersionResponse(version, buildTime)).build();
-    }
-
-    private SasResponse processValidationErrors(BindingResult br) {
-        SasResponse r = SasResponse.badRequest();
-        br.getFieldErrors().stream().forEach(err -> {
-            r.withInvalidParameterValueError(err.getField(), err.getRejectedValue(), err.getDefaultMessage());
-        });
-        return r;
     }
 
     private List<SecretShare> decodeSecretShares(JoinParameters params) {
