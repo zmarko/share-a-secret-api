@@ -16,15 +16,15 @@
     </head>
     <body fullbleed vertical layout unresolved>
 
-    <template is="auto-binding">
+    <template is="auto-binding" id="t">
 
         <flatiron-director route="{{selected}}" autoHash></flatiron-director>
 
         <core-header-panel flex>
-            <core-toolbar id="mainheader" valueattr="hash">
+            <core-toolbar id="mainheader">
                 <span flex>Share-A-Secret</span>
                 <div class="bottom fit" horizontal layout>
-                    <paper-tabs selected="{{selected}}">
+                    <paper-tabs selected="{{selected}}" valueattr="hash">
                         <paper-tab hash="home"><a href="#home">Home</a></paper-tab>
                         <paper-tab hash="split"><a href="#split">Split</a></paper-tab>
                         <paper-tab hash="join"><a href="#join">Join</a></paper-tab>
@@ -34,13 +34,13 @@
 
             <div layout horizontal center-center fit>
                 <core-animated-pages selected="{{selected}}" transitions="left-to-right" valueattr="hash">
-                    <section layout vertical center-center>
+                    <section layout vertical center-center hash="home">
                         <div>HOME</div>
                     </section>
-                    <section layout vertical center-center>
+                    <section layout vertical center-center hash="split">
                         <div>SPLIT</div>
                     </section>
-                    <section layout vertical center-center>
+                    <section layout vertical center-center hash="join">
                         <div>JOIN</div>
                     </section>
                 </core-animated-pages>
@@ -50,6 +50,7 @@
     </template>
 
     <script>
+var template = document.querySelector('#t');
 template.addEventListener('template-bound', function (e) {
     // Use URL hash for initial route. Otherwise, use the first page.
     this.selected = this.selected || "home";
